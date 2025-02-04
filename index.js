@@ -22,12 +22,11 @@ function searchMatrix(row, cols, replace) {
 let matrice = createMatrix(5, 5, 0);
 console.log(matrice);
 
-searchMatrix(1, 1, 1);
+searchMatrix(0, 1, 1);
 searchMatrix(1, 2, 1);
-searchMatrix(2, 1, 1);
 searchMatrix(2, 2, 1);
-searchMatrix(3, 3, 1);
-searchMatrix(4, 4, 1);
+searchMatrix(2, 1, 1);
+searchMatrix(2, 0, 1);
 
 function checkGrid3x3(row, col) {
     let count = 0;
@@ -44,16 +43,14 @@ function checkGrid3x3(row, col) {
     for (let i = 0; i < directions.length; i++) {
         let newRow = row + directions[i][0];
         let newCol = col + directions[i][1];
-        if (newRow >= 0) {
-            if (newRow < matrice.length) {
-                if (newCol >= 0) {
-                    if (newCol < matrice[0].length) {
-                        if (matrice[newRow][newCol] === 1) {
-                            count++;
-                        }
-                    }
-                }
-            }
+        if (
+            newRow >= 0 &&
+            newRow < matrice.length &&
+            newCol >= 0 &&
+            newCol < matrice[0].length &&
+            matrice[newRow][newCol] === 1
+        ) {
+            count++;
         }
     }
 
@@ -95,5 +92,3 @@ function iterate() {
     replaceMatrix(EditMatrix);
     console.log(matrice);
 }
-
-iterate();
