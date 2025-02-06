@@ -1,55 +1,64 @@
 @import url(https://fonts.googleapis.com/css?family=Pixelify+Sans:regular,500,600,700);
 
+body {
+  background-color: #d5f7ff;
+}
+
 * {
-	font-family: Pixelify Sans;
+  font-family: Pixelify Sans;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	padding: 0 30px 0 30px;
+  padding: 0 30px 0 30px;
 }
 
 h1 {
-	font-size: 70px;
-	font-weight: 700;
-	line-height: 64px;
-	padding: 0;
-	margin: 0 0 30px 0;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 64px;
+  padding: 0;
+  margin: 0 0 30px 0;
 }
 
 .Btn {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: 30px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 30px 0px 0px 0px;
+  background-color: #00000078;
+  padding: 15px;
+  border-radius: 15px;
 }
 
 .Speed > p {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 input[type="range"] {
-	-webkit-appearance: none !important;
-	background: #d9d9d9;
-	height: 7px;
+  -webkit-appearance: none !important;
+  background: #d9d9d9;
+  height: 7px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-	-webkit-appearance: none !important;
-	background: #4c4c4c;
-	height: 20px;
-	width: 20px;
-	border-radius: 1000px;
+  -webkit-appearance: none !important;
+  background: #4c4c4c;
+  height: 20px;
+  width: 20px;
+  border-radius: 1000px;
 }
 
 .run {
-	background-color: #d9d9d9;
-	color: #4c4c4c;
-	border: 0;
-	font-size: 48px;
-	font-weight: 700;
-	line-height: 38px;
-	padding: 15px 30px 15px 30px;
-	border-radius: 15px;
+  background-color: #d9d9d9;
+  color: #4c4c4c;
+  border: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 38px;
+  padding: 15px 30px 15px 30px;
+  border-radius: 15px;
 }
