@@ -1,22 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>Game of life</h1>
-    <canvas class="Gride" id="Gride"></canvas>
-    <div class="Btn">
-      <div class="Speed">
-        <p>Vitesse</p>
-        <input type="range" id="speed" name="speed" min="1" max="100" />
-      </div>
-      <button class="run" id="run">START</button>
-      <button class="run" id="Set" onclick="Ask();">Set Y and X</button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <h1>Game of life</h1>
+  <canvas class="Gride" id="Gride"></canvas>
+  <div class="Btn">
+    <div class="Speed">
+      <p>Vitesse</p>
+      <input type="range" id="speed" name="speed" min="1" max="100" />
     </div>
-  </body>
-  <script src="index.js"></script>
+    <button class="run" id="run">START</button>
+    <button class="run" id="Set" onclick="Ask();">Set Y and X</button>
+    <button id="EditRule" class="run" onclick="ShowRule()">Edit Rule</button>
+  </div>
+  <div class="Rule" id="Rule">
+    <div class="AddRule">
+      <div>
+        <p>Rule : Number</p>
+        <input type="number" id="number" name="number" min="0" max="9" />
+      </div>
+      <div>
+        <p>Rule : Operation</p>
+        <select id="Operation" name="Operation">
+          <option value="=">Equal</option>
+          <option value=">">Superior</option>
+          <option value="&lt;">Inferior</option>
+        </select>
+      </div>
+      <div>
+        <p>Rule : Life</p>
+        <select name="Life" id="Life">
+          <option value="1">Alive</option>
+          <option value="0">Dead</option>
+        </select>
+      </div>
+      <button id="AddRule" onclick="addRule()">AddRule</button>
+    </div>
+    <div class="RemoveRule"></div>
+  </div>
+</body>
+<script src="index.js"></script>
+
 </html>

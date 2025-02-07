@@ -7,6 +7,12 @@ MatrixWidth = 50;
 BoxB = 2;
 boxS = (innerHeight - BoxB) / MatrixHeight / 1.5;
 
+const numberBTN = document.getElementById("number");
+const OperationBTN = document.getElementById("Operation");
+const LifeBTN = document.getElementById("Life");
+const ruleContainer = document.querySelector('.RemoveRule');
+const EditRule = document.getElementById("Rule");
+
 DefaultTime = 2000;
 
 let matrice = [];
@@ -26,16 +32,12 @@ function EditMatrix1(Matrice) {
       const TrueConte = checkGrid3x3(i, j);
       for (const rule of Rule) {
         let condition = false;
-        switch (rule[0]) {
-          case "<":
-            condition = TrueConte < rule[1];
-            break;
-          case "=":
-            condition = TrueConte === rule[1];
-            break;
-          case ">":
-            condition = TrueConte > rule[1];
-            break;
+        if (rule[0] === "<") {
+          condition = TrueConte < rule[1];
+        } else if (rule[0] === "=") {
+          condition = TrueConte === rule[1];
+        } else if (rule[0] === ">") {
+          condition = TrueConte > rule[1];
         }
         if (condition) {
           Matrice[i][j] = rule[2];
@@ -118,7 +120,7 @@ function iterate() {
 function Setup(OnOff) {
   matrice = createMatrix(MatrixHeight, MatrixWidth, 0);
   DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
-  let Save = [];
+  updateRulesDisplay();
   if (OnOff == 1) {
     loop();
   }
@@ -164,29 +166,33 @@ document.addEventListener("mousemove", (event) => {
   if (isMouseDown) {
     const x = Math.floor((event.clientX - canevasX) / boxS);
     const y = Math.floor((event.clientY - canevasY) / boxS);
-    if (x + "" + y != XY) {
-      XY = x + "" + y;
-      if (matrice[y][x] == 1) {
-        matrice[y][x] = 0;
-      } else {
-        matrice[y][x] = 1;
+    if (x >= 0 && x < MatrixWidth && y >= 0 && y < MatrixHeight && EditRule.style.display !== "unset") {
+      if (x + "" + y != XY) {
+        XY = x + "" + y;
+        if (matrice[y][x] == 1) {
+          matrice[y][x] = 0;
+        } else {
+          matrice[y][x] = 1;
+        }
       }
+      DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
     }
-
-    DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
   }
 });
 
 document.addEventListener("mousedown", (event) => {
   const x = Math.floor((event.clientX - canevasX) / boxS);
   const y = Math.floor((event.clientY - canevasY) / boxS);
-  if (matrice[y][x] == 1) {
-    matrice[y][x] = 0;
-  } else {
-    matrice[y][x] = 1;
+  if (x >= 0 && x < MatrixWidth && y >= 0 && y < MatrixHeight && EditRule.style.display !== "unset") {
+    if (matrice[y][x] == 1) {
+      matrice[y][x] = 0;
+    } else {
+      matrice[y][x] = 1;
+    }
+  
+    DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
   }
-
-  DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
+  
 });
 
 const RunBTN = document.getElementById("run");
@@ -218,6 +224,65 @@ function Ask() {
   MatrixWidth = prompt("Width of the grid", "50");
   boxS = (innerHeight - BoxB) / MatrixHeight / 1.5;
   Setup(0);
+}
+
+function addRule() {
+  Rule.push([OperationBTN.value, Number(numberBTN.value), Number(LifeBTN.value)]);
+  updateRulesDisplay();
+}
+
+function RemoveRule(ID) {
+  Rule.splice(ID, 1);
+  updateRulesDisplay();
+}
+
+function updateRulesDisplay() {
+  ruleContainer.innerHTML = "";
+  for (let index = 0; index < Rule.length; index++) {
+    const rule = Rule[index];
+    const ruleDiv = document.createElement("div");
+    let operatorText = "";
+    if (rule[0] === "<") {
+      operatorText = "less than";
+    } else if (rule[0] === "=") {
+      operatorText = "equal to";
+    } else if (rule[0] === ">") {
+      operatorText = "greater than";
+    }
+    let cellState;
+    if (rule[2] === 0) {
+      cellState = "dead";
+    } else {
+      cellState = "alive";
+    }
+    ruleDiv.innerHTML = `<p>Rule ${index + 1}: If live neighbors count is ${operatorText} ${rule[1]}, then the cell becomes ${cellState}.</p>`;
+    const removeBtn = document.createElement("button");
+    removeBtn.innerText = "Remove";
+    removeBtn.addEventListener("click", function () {
+      RemoveRule(index);
+      updateRulesDisplay();
+    });
+    
+    ruleDiv.appendChild(removeBtn);
+    ruleContainer.appendChild(ruleDiv);
+  }
+}
+
+function addRule() {
+  Rule.push([
+    OperationBTN.value, 
+    Number(numberBTN.value), 
+    Number(LifeBTN.value)
+  ]);
+  updateRulesDisplay();
+}
+
+function ShowRule() {
+  if (EditRule.style.display === "unset") {
+    EditRule.style.display = "none";
+  } else {
+  EditRule.style.display = "unset";
+  }
 }
 
 Setup(1);
