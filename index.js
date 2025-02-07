@@ -2,8 +2,8 @@ const canevas = document.getElementById("Gride");
 canevas.width = innerWidth / 1.1;
 canevas.height = innerHeight / 1.5;
 ctx = canevas.getContext("2d");
-MatrixHeight = 100;
-MatrixWidth = 500;
+MatrixHeight = 50;
+MatrixWidth = 50;
 BoxB = 2;
 boxS = (innerHeight - BoxB) / MatrixHeight / 1.5;
 
@@ -95,15 +95,18 @@ function EditMatrix1(Matrice) {
 
 function iterate() {
   matrice = EditMatrix1(cloneMatrix(matrice));
-  DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight);
+  DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
 }
-function Setup() {
+function Setup(OnOff) {
   matrice = createMatrix(MatrixHeight, MatrixWidth, 0);
-  DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight);
-  loop();
+  DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
+  let Save = [];
+  if (OnOff == 1) {
+    loop();
+  }
 }
 
-function DisplayMatrix(Box, border, W, H) {
+function DisplayMatrix(Box, border, W, H, matrice) {
   ctx.clearRect(0, 0, canevas.width, canevas.height);
   for (let x = 0; x < W; x++) {
     for (let y = 0; y < H; y++) {
@@ -152,7 +155,7 @@ document.addEventListener("mousemove", (event) => {
       }
     }
 
-    DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight);
+    DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
   }
 });
 
@@ -165,7 +168,7 @@ document.addEventListener("mousedown", (event) => {
     matrice[y][x] = 1;
   }
 
-  DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight);
+  DisplayMatrix(boxS, BoxB, MatrixWidth, MatrixHeight, matrice);
 });
 
 const RunBTN = document.getElementById("run");
@@ -192,4 +195,11 @@ function loop() {
   setTimeout(loop, time);
 }
 
-Setup();
+function Ask() {
+  MatrixHeight = prompt("Height of the grid", "50");
+  MatrixWidth = prompt("Width of the grid", "50");
+  boxS = (innerHeight - BoxB) / MatrixHeight / 1.5;
+  Setup(0);
+}
+
+Setup(1);
