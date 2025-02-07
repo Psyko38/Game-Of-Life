@@ -14,6 +14,39 @@ let time = 0;
 let OnOFF = 0;
 let isMouseDown = false;
 
+let Rule = [
+  ["<", 2, 0],
+  ["=", 3, 1],
+  [">", 3, 0],
+];
+
+function EditMatrix1(Matrice) {
+  for (let i = 0; i < Matrice.length; i++) {
+    for (let j = 0; j < Matrice[i].length; j++) {
+      const TrueConte = checkGrid3x3(i, j);
+      for (const rule of Rule) {
+        let condition = false;
+        switch (rule[0]) {
+          case "<":
+            condition = TrueConte < rule[1];
+            break;
+          case "=":
+            condition = TrueConte === rule[1];
+            break;
+          case ">":
+            condition = TrueConte > rule[1];
+            break;
+        }
+        if (condition) {
+          Matrice[i][j] = rule[2];
+          break;
+        }
+      }
+    }
+  }
+  return Matrice;
+}
+
 function createMatrix(rows, cols, initialValue = 0) {
   let matrix = [];
   for (let i = 0; i < rows; i++) {
@@ -76,21 +109,6 @@ function cloneMatrix(matrice) {
 
 function replaceMatrix(Matrice) {
   matrice = Matrice;
-}
-
-function EditMatrix1(Matrice) {
-  for (let i = 0; i < Matrice.length; i++) {
-    for (let j = 0; j < Matrice[i].length; j++) {
-      let TrueConte = checkGrid3x3(i, j);
-      if (TrueConte === 3) {
-        Matrice[i][j] = 1;
-      }
-      if (TrueConte < 2 || TrueConte > 3) {
-        Matrice[i][j] = 0;
-      }
-    }
-  }
-  return Matrice;
 }
 
 function iterate() {
