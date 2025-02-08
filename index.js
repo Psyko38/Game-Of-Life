@@ -133,7 +133,7 @@ function DisplayMatrix(Box, border, W, H, matrice) {
       ctx.fillStyle = "rgb(76, 76, 76)";
       ctx.fillRect(x * Box, y * Box, Box, Box);
       if (matrice[y][x] == 1) {
-        ctx.fillStyle = "rgb(0,255,0)";
+        ctx.fillStyle = "rgb(0,166,100)";
       } else {
         ctx.fillStyle = "rgb(0, 0, 0)";
       }
